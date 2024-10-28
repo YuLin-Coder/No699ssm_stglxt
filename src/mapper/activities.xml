@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.ActivitiesDAO">
+	<resultMap type="activities" id="activitiesMap">
+		<id property="activitiesid" column="activitiesid" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="addtime" column="addtime" />
+		<result property="hits" column="hits" />
+		<result property="num" column="num" />
+		<result property="status" column="status" />
+		<result property="memo" column="memo" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertActivities" parameterType="activities">  
+		insert into activities(activitiesid  , title  , contents  , addtime  , hits  , num  , status  , memo ) values(#{activitiesid}  , #{title}   , #{contents}   , #{addtime}   , #{hits}   , #{num}   , #{status}   , #{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+		<update id="updateActivities" parameterType="activities">
+update activities set  title=#{title}  , contents=#{contents}  , addtime=#{addtime}  , hits=#{hits}  , num=#{num}  , status=#{status}  , memo=#{memo}  where activitiesid=#{activitiesid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteActivities" parameterType="String">
+		delete from activities where activitiesid = #{activitiesid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置  -->
+	<select id="getAllActivities" resultMap="activitiesMap">
+select a.*  from activities a  where 1=1  order by activitiesid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置  -->
+	<select id="getActivitiesById" parameterType="String" resultMap="activitiesMap">
+select a.*  from activities a  where 1=1 and activitiesid=#{activitiesid} order by activitiesid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置  -->
+	<select id="getActivitiesByCond" parameterType="activities" resultMap="activitiesMap">
+select a.*  from activities a  where 1=1 
+		<if test="title != null and '' != title">
+			and a.title = #{title}  
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}  
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}  
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits = #{hits}  
+		</if>
+		<if test="num != null and '' != num">
+			and a.num = #{num}  
+		</if>
+		<if test="status != null and '' != status">
+			and a.status = #{status}  
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}  
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置  -->
+	<select id="getActivitiesByLike" parameterType="activities" resultMap="activitiesMap">
+select a.*  from activities a  where 1=1 
+		<if test="title != null and '' != title">
+			and a.title like CONCAT('%', CONCAT(#{title}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits like CONCAT('%', CONCAT(#{hits}, '%'))
+		</if>
+		<if test="num != null and '' != num">
+			and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+		</if>
+		<if test="status != null and '' != status">
+			and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->
